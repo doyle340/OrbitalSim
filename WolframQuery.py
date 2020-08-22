@@ -2,7 +2,7 @@
 
 import wolframalpha
 import logging
-from AtlasEyes.AtlasEyesAPI import Wolfram, Units, QueryConstructionError, Queryables
+from AtlasEyes.AtlasAPI import Wolfram, Units, QueryConstructionError, Queryables
 
 # TODO: Reformat prints, etc. using logging
 
