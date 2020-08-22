@@ -6,6 +6,7 @@ from AtlasEyes.AtlasAPI import Wolfram, Units, QueryConstructionError, Queryable
 
 # TODO: Reformat prints, etc. using logging
 
+
 class WolframQuery:
     def __init__(self, objects, properties):
         self.objects = objects
@@ -64,14 +65,3 @@ class WolframQuery:
         answer = next(wolframs_response.results).text
 
         return print(answer)
-
-
-
-if __name__ == '__main__':
-    findEarthMass = WolframQuery(objects=["Europa"], properties=["mass"])
-    query = findEarthMass.construct_question()
-    findEarthMass.ask_wolfram(query)
-
-
-
-
