@@ -1,15 +1,23 @@
 # This program will query Wolfram Alpha for the mass of an orbital body and persist as a usable object
 
 import wolframalpha
+import logging
 from AtlasEyes.AtlasEyesAPI import Wolfram, Units, QueryConstructionError, Queryables
 
+# TODO: Reformat prints, etc. using logging
 
 class WolframQuery:
     def __init__(self, objects, properties):
         self.objects = objects
         self.properties = properties
+        print(self.objects)
+        print(self.properties)
 
-    def construct_question(self, property_units=Queryables.properties_and_units.objects):
+    def construct_question(self):
+
+        print("Constructing query question...")
+
+        property_units = Queryables.properties_and_units[self.properties[0]]
 
         # Validate number of objects to ensure properties are relative
         if len(self.objects) > 1 and 'distance' not in self.properties:
@@ -19,14 +27,19 @@ class WolframQuery:
 
         # Validate that we understand the units
         if property_units not in Units.acceptable_units:
+            message = "Units provided were not found in the API file. Try again."
+            print(message)
             raise QueryConstructionError(message="Units provided were not found in the API file. Try again.")
 
         # Validate that our units are acceptable to the property requested
-        if property_units != Queryables.properties_and_units.property:
-            raise QueryConstructionError(message="Unit/Property Pairing is nonsense. Try again.")
+        if property_units != Queryables.properties_and_units[self.properties[0]]:
+            message = "Unit/Property Pairing is nonsense. Try again."
+            print(message)
+            raise QueryConstructionError(message)
 
         # Only allow query for one property of the object(s) for now
         if len(self.properties) > 1:
+            print("more than 1 property")
             raise QueryConstructionError(message="More than one property provided. Please query one non-relative "
                                                  "property per object.")
 
@@ -36,9 +49,10 @@ class WolframQuery:
                        + Wolfram.unit_assertion.property_units
         else:
             # of the form "Whats is the mass of the Earth"
-            question = Wolfram.question_predicate + 'the' + self.properties[0] + Wolfram.possessive + self.objects[0] \
-                       + Wolfram.unit_assertion + property_units
-
+            question = Wolfram.question_predicate + ' the ' + self.properties[0] + ' ' + Wolfram.possessive + ' ' + \
+                       self.objects[0] \
+                       + ' ' + Wolfram.unit_assertion + ' ' + property_units
+        print(question)
         return question
 
     # question okay, let's establish a connection
@@ -49,9 +63,14 @@ class WolframQuery:
         wolframs_response = self.client.query(question)
         answer = next(wolframs_response.results).text
 
-        return answer
+        return print(answer)
 
 
+
+if __name__ == '__main__':
+    findEarthMass = WolframQuery(objects=["Europa"], properties=["mass"])
+    query = findEarthMass.construct_question()
+    findEarthMass.ask_wolfram(query)
 
 
 

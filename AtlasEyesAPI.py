@@ -26,7 +26,7 @@ class Queryables(Wolfram, Units):
     Contains queryable terms to feed Wolfram Alpha questions
     """
 
-    objects = {
+    queryable_objects = {
         'earth': "Earth",
         'earths_moon': "the moon",
         'earths_sun': "the sun"
