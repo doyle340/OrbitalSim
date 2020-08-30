@@ -1,4 +1,9 @@
 # Project API
+from math import pi as pi
+from astropy.constants.astropyconst40 import M_earth
+
+# TODO: Add function annotations
+# TODO: Implement Pytest
 
 class Wolfram:
     """
@@ -45,9 +50,36 @@ class QueryConstructionError:
     Exception raised in Wolfram Alpha Query
 
     Attributes:
-        query_input -- input expression attempted for query
         message -- explanation of the error
     """
 
     def __init__(self, message):
         self.message = message
+
+
+class AtlasGeometry:
+    """
+    I got a C in algebra 2. Let's do more physics and less math. Yee-haww!
+    """
+
+    def sphere_volume(self, radius):
+        """
+        V = 4/3*pi*r^3
+        :param radius:
+        :return:
+        Returns the volume of a sphere when provided the sphere's radius
+        """
+        sphere_volume = (4.0/3.0)*pi*(radius**3)
+
+        return sphere_volume
+
+
+class AtlasConstants:
+    # TODO: Find out what the heck Astropy is doing... give me my constants, yo
+    G = 1.0
+    earth_mass = M_earth
+
+
+class AtlasParms:
+    absolute_error_resolution = 1.0e-10
+    relative_error_resolution = 1.0e-10

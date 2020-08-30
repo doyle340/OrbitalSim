@@ -1,13 +1,32 @@
 # This program will query Wolfram Alpha for the mass of an orbital body and persist as a usable object
 
 import wolframalpha
-import logging
 from AtlasEyes.AtlasAPI import Wolfram, Units, QueryConstructionError, Queryables
 
 # TODO: Reformat prints, etc. using logging
+# TODO: Implement Pytest
+# TODO: Add function annotations
+# TODO: Reformat for non-human readable Wolfram Lang (more efficient, less prone to error)
 
 
 class WolframQuery:
+    """
+    WolframQuery intends to query Wolfram | Alpha for an object and its property and return the answer
+
+    Parameters
+    ----------
+    objects : list
+        Only supports lists of one element at the moment (mostly); A proper noun (ie. Europa, Earth, the sun)
+    properties: list
+        Only supports lists of one element at the moment; A physical property from the API (ie. mass, radius, density)
+
+    Methods
+    -------
+    construct_question()
+        Returns the Wolfram | Alpha readable question from  the objects and properties
+    ask_wolfram(question)
+        Asks Wolfram | Alpha a question and returns the response to the client.
+    """
     def __init__(self, objects, properties):
         self.objects = objects
         self.properties = properties
