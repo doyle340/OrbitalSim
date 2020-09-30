@@ -1,6 +1,7 @@
 # Program to define, support, and verify the form of any spherical particle in the scale of Classical Mechanics
 
-from AtlasEyes.AtlasAPI import AtlasGeometry, constants
+from AtlasEyes.AtlasAPI import AtlasGeometry, AtlasConstants
+from AtlasEyes.AtlasAPI import Earth as Earth
 import astropy.constants as const
 # TODO: Add function annotations
 # TODO: Implement Pytest
@@ -9,7 +10,10 @@ import astropy.constants as const
 class MacroParticleManifest:
 
     def __init__(self):
-        self.earth_mass = constants.earth_mass
+        self.earth_mass = Earth.mass
+        self.earth_radius = Earth.radius
+
+        default_macro_particle = self.create_default_macroparticle()
 
     def create_default_macroparticle(self, uniform_density_flag=True):
         """
@@ -22,8 +26,8 @@ class MacroParticleManifest:
         """
 
         default_macro_mass = self.earth_mass
-        default_macro_radius = 1.0
-        default_macro_volume = AtlasGeometry.sphere_volume(default_macro_radius)
+        default_macro_radius = self.earth_radius
+        default_macro_volume = AtlasGeometry().sphere_volume(default_macro_radius)
 
         if uniform_density_flag is True:
             default_macro_density = default_macro_mass / default_macro_volume
@@ -40,7 +44,3 @@ class MacroParticleManifest:
         }
 
         return default_macro_particle
-
-
-if __name__ == '__main__':
-    default_macro_particle = MacroParticleManifest.create_default_macroparticle()

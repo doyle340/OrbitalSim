@@ -7,6 +7,7 @@ from AtlasEyes.AtlasAPI import AtlasConstants
 from AtlasEyes.AtlasAPI import AtlasParms as parms
 from scipy.integrate import solve_ivp
 
+
 class TwoBodyOrbit:
     """
     DoubleOrbit uses Lagrangians to solve the Two-Body Problem in cartesian coordinates.
@@ -25,7 +26,8 @@ class TwoBodyOrbit:
         given time t and the corresponding value of y.
     """
 
-    def __init__(self, atlas_object1=MacroParticleManifest(), atlas_object2=MacroParticleManifest()):
+    def __init__(self, atlas_object1=MacroParticleManifest().create_default_macroparticle(),
+                 atlas_object2=MacroParticleManifest().create_default_macroparticle()):
         self.G = AtlasConstants.G
         self.mass1 = atlas_object1['mass']
         self.mass2 = atlas_object2['mass']

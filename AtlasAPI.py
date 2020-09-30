@@ -1,5 +1,6 @@
 # Project API
 from math import pi as pi
+from math import pow as pow
 from astropy.constants.astropyconst40 import M_earth
 
 # TODO: Add function annotations
@@ -77,9 +78,13 @@ class AtlasGeometry:
 class AtlasConstants:
     # TODO: Find out what the heck Astropy is doing... give me my constants, yo
     G = 1.0
-    earth_mass = M_earth
 
 
 class AtlasParms:
     absolute_error_resolution = 1.0e-10
     relative_error_resolution = 1.0e-10
+
+
+class Earth:
+    mass = 5.97*10**24
+    radius = 6.37814*10**6
